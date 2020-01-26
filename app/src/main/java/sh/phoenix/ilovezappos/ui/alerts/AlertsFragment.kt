@@ -1,4 +1,4 @@
-package sh.phoenix.ilovezappos.ui.notifications
+package sh.phoenix.ilovezappos.ui.alerts
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,22 +10,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import sh.phoenix.ilovezappos.R
 
-class NotificationsFragment : Fragment() {
-
-    private lateinit var notificationsViewModel: NotificationsViewModel
+class AlertsFragment : Fragment() {
+    private lateinit var alertsViewModel: AlertsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(this, Observer {
+        alertsViewModel =
+            ViewModelProviders.of(this).get(AlertsViewModel::class.java)
+
+        val root = inflater.inflate(R.layout.fragment_alerts, container, false)
+
+        val textView: TextView = root.findViewById(R.id.text_alerts)
+        alertsViewModel.text.observe(this, Observer {
             textView.text = it
         })
+
         return root
     }
 }

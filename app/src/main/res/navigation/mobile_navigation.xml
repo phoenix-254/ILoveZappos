@@ -3,23 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_transactions">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="sh.phoenix.ilovezappos.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_transactions"
+        android:name="sh.phoenix.ilovezappos.ui.transactions.TransactionFragment"
+        android:label="@string/title_transactions"
+        tools:layout="@layout/fragment_transaction" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="sh.phoenix.ilovezappos.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_order_book"
+        android:name="sh.phoenix.ilovezappos.ui.orderbook.OrderBookFragment"
+        android:label="@string/title_order_book"
+        tools:layout="@layout/fragment_order_book" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="sh.phoenix.ilovezappos.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_alerts"
+        android:name="sh.phoenix.ilovezappos.ui.alerts.AlertsFragment"
+        android:label="@string/title_alerts"
+        tools:layout="@layout/fragment_alerts" />
+
 </navigation>

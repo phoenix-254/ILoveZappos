@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">ILoveZappos</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <!-- Navigation menu items-->
+    <string name="title_transactions">Transactions</string>
+    <string name="title_order_book">Order Book</string>
+    <string name="title_alerts">Alerts</string>
+
 </resources>

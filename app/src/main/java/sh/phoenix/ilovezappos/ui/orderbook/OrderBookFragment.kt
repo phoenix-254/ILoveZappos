@@ -1,4 +1,4 @@
-package sh.phoenix.ilovezappos.ui.dashboard
+package sh.phoenix.ilovezappos.ui.orderbook
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,22 +10,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import sh.phoenix.ilovezappos.R
 
-class DashboardFragment : Fragment() {
-
-    private lateinit var dashboardViewModel: DashboardViewModel
+class OrderBookFragment : Fragment() {
+    private lateinit var orderBookViewModel: OrderBookViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(this, Observer {
+        orderBookViewModel =
+            ViewModelProviders.of(this).get(OrderBookViewModel::class.java)
+
+        val root = inflater.inflate(R.layout.fragment_order_book, container, false)
+
+        val textView: TextView = root.findViewById(R.id.text_order_book)
+        orderBookViewModel.text.observe(this, Observer {
             textView.text = it
         })
+
         return root
     }
 }
