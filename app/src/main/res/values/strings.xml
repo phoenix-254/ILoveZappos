@@ -6,4 +6,15 @@
     <string name="title_order_book">Order Book</string>
     <string name="title_alerts">Alerts</string>
 
+    <!-- Chart types-->
+    <string name="chart_type_line">Line</string>
+    <string name="chart_type_bar">Bar</string>
+
+    <!-- Network Errors-->
+    <string name="network_error_title">Aww... Snap!</string>
+    <string name="network_error_message">No Network Detected. Please check your internet connection and try again!</string>
+    <string name="try_again_button">Try Again</string>
+    <string name="ic_wifi_off_description">Icon showing that wifi is disabled.</string>
+    <string name="ic_mobile_data_off_description">Icon showing that mobile data is disabled.</string>
+
 </resources>
