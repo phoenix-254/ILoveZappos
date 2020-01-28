@@ -9,3 +9,16 @@ data class Transaction(
     val tid: String,
     val type: String
 )
+
+data class TransactionDateTime(
+    val year: Int,
+    val month: Int,
+    val day: Int,
+    val hour: Int,
+    val minutes: Int
+)
+
+data class TransactionHistoryChartData(
+    val date: TransactionDateTime,
+    val price: Float
+)

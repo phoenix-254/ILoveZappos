@@ -6,9 +6,10 @@
     <string name="title_order_book">Order Book</string>
     <string name="title_alerts">Alerts</string>
 
-    <!-- Chart types-->
+    <!-- Transaction History chart-->
     <string name="chart_type_line">Line</string>
     <string name="chart_type_bar">Bar</string>
+    <string name="chart_label">Bitcoin Price : Last Hour</string>
 
     <!-- Network Errors-->
     <string name="network_error_title">Aww... Snap!</string>
