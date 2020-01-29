@@ -24,6 +24,7 @@ import sh.phoenix.ilovezappos.data.TransactionDateTime
 import sh.phoenix.ilovezappos.data.TransactionHistoryChartData
 import sh.phoenix.ilovezappos.service.BitStampServiceFactory
 import sh.phoenix.ilovezappos.ui.transactions.chartutils.*
+import sh.phoenix.ilovezappos.utility.Constants
 import java.util.*
 
 class TransactionFragment : Fragment() {
@@ -69,8 +70,6 @@ class TransactionFragment : Fragment() {
             }
         }
 
-        loadTransactionHistory()
-
         return root
     }
 
@@ -82,7 +81,6 @@ class TransactionFragment : Fragment() {
         barChart.description.isEnabled = false
 
         barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        barChart.xAxis.setDrawGridLines(false)
         barChart.xAxis.labelCount = 6
 
         barChart.axisLeft.valueFormatter = PriceFormatter()
@@ -121,7 +119,7 @@ class TransactionFragment : Fragment() {
     private fun loadTransactionHistory() {
         GlobalScope.launch(Dispatchers.Main) {
             val client = BitStampServiceFactory.BIT_STAMP_API_CLIENT
-            val serviceResponse = client.getTransactionHistory("btcusd")
+            val serviceResponse = client.getTransactionHistory(Constants.CURRENCY_PAIR)
 
             if(serviceResponse.isSuccessful) {
                 val transactions: List<Transaction>? = serviceResponse.body()
@@ -248,6 +246,11 @@ class TransactionFragment : Fragment() {
 
         barChart.visibility = View.INVISIBLE
         lineChart.visibility = View.VISIBLE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadTransactionHistory()
     }
 
     override fun onAttach(context: Context) {
