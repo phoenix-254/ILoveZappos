@@ -1,4 +1,4 @@
-package sh.phoenix.ilovezappos.data
+package sh.phoenix.ilovezappos.servicedata
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)

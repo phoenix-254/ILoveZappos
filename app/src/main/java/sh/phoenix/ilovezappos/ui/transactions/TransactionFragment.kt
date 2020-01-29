@@ -15,13 +15,14 @@ import com.github.mikephil.charting.components.Legend.LegendForm
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.google.android.material.button.MaterialButton
+import kotlinx.android.synthetic.main.fragment_transaction.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import sh.phoenix.ilovezappos.R
-import sh.phoenix.ilovezappos.data.Transaction
-import sh.phoenix.ilovezappos.data.TransactionDateTime
-import sh.phoenix.ilovezappos.data.TransactionHistoryChartData
+import sh.phoenix.ilovezappos.servicedata.Transaction
+import sh.phoenix.ilovezappos.model.TransactionDateTime
+import sh.phoenix.ilovezappos.model.TransactionItem
 import sh.phoenix.ilovezappos.service.BitStampServiceFactory
 import sh.phoenix.ilovezappos.ui.transactions.chartutils.*
 import sh.phoenix.ilovezappos.utility.Constants
@@ -34,9 +35,7 @@ class TransactionFragment : Fragment() {
 
     private lateinit var mContext: Context
 
-    private lateinit var selectedChartType: ChartType
-
-    private lateinit var root: View
+    private var selectedChartType: ChartType = ChartType.BAR
 
     private lateinit var barChart: BarChart
     private lateinit var lineChart: LineChart
@@ -46,35 +45,44 @@ class TransactionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        root = inflater.inflate(R.layout.fragment_transaction, container, false)
+        val root = inflater.inflate(R.layout.fragment_transaction, container, false)
 
-        initBarChartView()
+        barChart = root.barChart
+        setBarChartProperties()
 
-        initLineChartView()
+        lineChart = root.lineChart
+        setLineChartProperties()
 
-        selectedChartType = ChartType.BAR
-
-        val barChartSelector: MaterialButton = root.findViewById(R.id.chartTypeBarButton)
+        val barChartSelector: MaterialButton = root.chartTypeBarButton
         barChartSelector.addOnCheckedChangeListener { _, isChecked ->
             if(isChecked && selectedChartType != ChartType.BAR) {
                 selectedChartType = ChartType.BAR
-                loadTransactionHistory()
+                getTransactionsDataFromServer()
             }
         }
 
-        val lineChartSelector: MaterialButton = root.findViewById(R.id.chartTypeLineButton)
+        val lineChartSelector: MaterialButton = root.chartTypeLineButton
         lineChartSelector.addOnCheckedChangeListener { _, isChecked ->
             if(isChecked && selectedChartType != ChartType.LINE) {
                 selectedChartType = ChartType.LINE
-                loadTransactionHistory()
+                getTransactionsDataFromServer()
             }
         }
 
         return root
     }
 
-    private fun initBarChartView() {
-        barChart = root.findViewById(R.id.barChart)
+    override fun onStart() {
+        super.onStart()
+        getTransactionsDataFromServer()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
+    private fun setBarChartProperties() {
         barChart.setPinchZoom(false)
         barChart.setDrawBarShadow(false)
         barChart.setDrawGridBackground(false)
@@ -95,8 +103,7 @@ class TransactionFragment : Fragment() {
         barChart.legend.textSize = 12f
     }
 
-    private fun initLineChartView() {
-        lineChart = root.findViewById(R.id.lineChart)
+    private fun setLineChartProperties() {
         lineChart.setPinchZoom(false)
         lineChart.setDrawGridBackground(false)
         lineChart.description.isEnabled = false
@@ -116,7 +123,7 @@ class TransactionFragment : Fragment() {
         lineChart.legend.textSize = 12f
     }
 
-    private fun loadTransactionHistory() {
+    private fun getTransactionsDataFromServer() {
         GlobalScope.launch(Dispatchers.Main) {
             val client = BitStampServiceFactory.BIT_STAMP_API_CLIENT
             val serviceResponse = client.getTransactionHistory(Constants.CURRENCY_PAIR)
@@ -139,16 +146,16 @@ class TransactionFragment : Fragment() {
         }
     }
 
-    private fun getFormattedChartData(transactions: List<Transaction>?): List<TransactionHistoryChartData>? {
+    private fun getFormattedChartData(transactions: List<Transaction>?): List<TransactionItem>? {
         if(transactions == null || transactions.isEmpty()) {
             Toast.makeText(mContext, "Error!", Toast.LENGTH_SHORT).show()
             return null
         }
 
-        // Filter data with same unix timestamp date
+        // Keep only single data for one unix timestamp date
         val filteredTransactions: List<Transaction> = transactions.distinctBy { it.date }
 
-        val chartDataList = mutableListOf<TransactionHistoryChartData>()
+        val items = mutableListOf<TransactionItem>()
 
         for(transaction in filteredTransactions) {
             val cal: Calendar = Calendar.getInstance()
@@ -159,19 +166,14 @@ class TransactionFragment : Fragment() {
                 cal.get(Calendar.DATE), cal.get(Calendar.HOUR),
                 cal.get(Calendar.MINUTE))
 
-            val chartData = TransactionHistoryChartData(
-                transactionDateTime,
-                transaction.price.toFloat()
-            )
-
-            chartDataList.add(chartData)
+            items.add(TransactionItem(transactionDateTime, transaction.price.toFloat()))
         }
 
         // Here we'll merge the data for the same minute in a single object
         // and set the price value to be average price for that minute.
         // This way we are limiting the number of bars to 60 i.e 1 bar for each minute in that hour.0
-        val copy = chartDataList.toList()
-        chartDataList.clear()
+        val copy = items.toList()
+        items.clear()
 
         var dateTime: TransactionDateTime? = null
         var averagePrice = 0.0f
@@ -187,7 +189,7 @@ class TransactionFragment : Fragment() {
 
             averagePrice = (averagePrice / count)
 
-            chartDataList.add(TransactionHistoryChartData(dateTime, averagePrice))
+            items.add(TransactionItem(dateTime, averagePrice))
 
             // Reset for the next minute
             dateTime = copy[i].date
@@ -195,10 +197,10 @@ class TransactionFragment : Fragment() {
             count = 1
         }
 
-        return chartDataList
+        return items
     }
 
-    private fun showBarChartData(chartData: List<TransactionHistoryChartData>) {
+    private fun showBarChartData(chartData: List<TransactionItem>) {
         val barEntries = mutableListOf<BarEntry>()
 
         for((index, value) in chartData.withIndex()) {
@@ -223,7 +225,7 @@ class TransactionFragment : Fragment() {
         barChart.visibility = View.VISIBLE
     }
 
-    private fun showLineChartData(chartData: List<TransactionHistoryChartData>) {
+    private fun showLineChartData(chartData: List<TransactionItem>) {
         val lineEntries = mutableListOf<Entry>()
 
         for((index, value) in chartData.withIndex()) {
@@ -238,23 +240,11 @@ class TransactionFragment : Fragment() {
         lineDataSet.setDrawCircleHole(false)
         lineDataSet.setDrawCircles(false)
 
-        val lineData = LineData(lineDataSet)
-
-        lineChart.data = lineData
+        lineChart.data = LineData(lineDataSet)
 
         lineChart.invalidate()
 
         barChart.visibility = View.INVISIBLE
         lineChart.visibility = View.VISIBLE
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadTransactionHistory()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext = context
     }
 }

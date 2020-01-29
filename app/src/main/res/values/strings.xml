@@ -18,4 +18,9 @@
     <string name="ic_wifi_off_description">Icon showing that wifi is disabled.</string>
     <string name="ic_mobile_data_off_description">Icon showing that mobile data is disabled.</string>
 
+    <!-- Order book-->
+    <string name="title_amount">Amount</string>
+    <string name="title_bid">Bid</string>
+    <string name="title_ask">Ask</string>
+
 </resources>

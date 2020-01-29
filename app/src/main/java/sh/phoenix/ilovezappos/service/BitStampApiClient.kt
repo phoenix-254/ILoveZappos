@@ -3,8 +3,8 @@ package sh.phoenix.ilovezappos.service
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
-import sh.phoenix.ilovezappos.data.OrderBook
-import sh.phoenix.ilovezappos.data.Transaction
+import sh.phoenix.ilovezappos.servicedata.OrderBook
+import sh.phoenix.ilovezappos.servicedata.Transaction
 
 interface BitStampApiClient {
     @GET("transactions/{currency_pair}")

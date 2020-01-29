@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.view_network_error.*
 import sh.phoenix.ilovezappos.utility.Utility
 
 class MainActivity : AppCompatActivity() {
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         networkErrorDialog.setContentView(R.layout.view_network_error)
         networkErrorDialog.setCanceledOnTouchOutside(false)
 
-        val tryAgainButton: MaterialButton = networkErrorDialog.findViewById(R.id.tryAgainButton)
+        val tryAgainButton: MaterialButton = networkErrorDialog.tryAgainButton
         tryAgainButton.setOnClickListener {
             doNetworkCheck()
         }

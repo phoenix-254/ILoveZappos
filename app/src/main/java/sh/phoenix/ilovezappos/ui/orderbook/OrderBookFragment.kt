@@ -1,59 +1,72 @@
 package sh.phoenix.ilovezappos.ui.orderbook
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import androidx.lifecycle.ViewModelProvider
+import kotlinx.android.synthetic.main.fragment_order_book.*
 import sh.phoenix.ilovezappos.R
-import sh.phoenix.ilovezappos.service.BitStampServiceFactory
+import sh.phoenix.ilovezappos.ui.orderbook.orderbooklist.OrderBookEvent
+import sh.phoenix.ilovezappos.ui.orderbook.orderbooklist.OrderBookListAdapter
 
 class OrderBookFragment : Fragment() {
-    private lateinit var orderBookViewModel: OrderBookViewModel
+    private lateinit var mContext: Context
 
-    private lateinit var textView: TextView
+    private lateinit var viewModel: OrderBookViewModel
+
+    private lateinit var adapter: OrderBookListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        orderBookViewModel =
-            ViewModelProviders.of(this).get(OrderBookViewModel::class.java)
-
         val root = inflater.inflate(R.layout.fragment_order_book, container, false)
 
-        textView = root.findViewById(R.id.text_order_book)
-        orderBookViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-
-        loadOrderBook()
+        viewModel = ViewModelProvider(this).get(OrderBookViewModel::class.java)
 
         return root
     }
 
-    private fun loadOrderBook() {
-        GlobalScope.launch(Dispatchers.Main) {
-            val client = BitStampServiceFactory.BIT_STAMP_API_CLIENT
-            val serviceResponse = client.getOrderBook("btcusd")
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
 
-            if(serviceResponse.isSuccessful) {
-                val bids: List<Any>? = serviceResponse.body()?.bids
-                val asks: List<Any>? = serviceResponse.body()?.asks
+    override fun onDestroyView() {
+        super.onDestroyView()
+        order_list.adapter = null
+    }
 
-                val bid: List<*>? = bids?.get(0) as List<*>?
+    override fun onStart() {
+        super.onStart()
 
-                textView.text = bid?.get(0) as CharSequence
-            } else {
-                textView.text = "Error ${serviceResponse.code()}"
+        setupAdapter()
+
+        observeViewModel()
+
+        viewModel.handleEvent(OrderBookEvent.OnStart)
+    }
+
+    private fun setupAdapter() {
+        adapter = OrderBookListAdapter()
+        order_list.adapter = adapter
+    }
+
+    private fun observeViewModel() {
+        viewModel.errorState.observe(this, Observer {
+            if(it) {
+                Toast.makeText(mContext, "Error!", Toast.LENGTH_SHORT).show()
             }
-        }
+        })
+
+        viewModel.orderBookList.observe(this, Observer {
+            adapter.submitList(it)
+        })
     }
 }
