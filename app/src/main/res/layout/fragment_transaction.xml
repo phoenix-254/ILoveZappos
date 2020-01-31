@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
     android:layout_marginBottom="?attr/actionBarSize">
@@ -16,9 +15,7 @@
         app:singleSelection="true"
         app:selectionRequired="true"
         app:checkedButton="@+id/chartTypeBarButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
@@ -43,6 +40,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/chartTypeToggleButtonGroup"
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
 
@@ -60,4 +58,21 @@
 
     </RelativeLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/progressBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/chartTypeToggleButtonGroup"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/colorPrimary"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
