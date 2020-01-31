@@ -1,6 +1,6 @@
-package sh.phoenix.ilovezappos.utility
+package sh.phoenix.ilovezappos
 
-class Constants {
+class AppConstants {
     companion object {
         const val BASE_URL = "https://www.bitstamp.net/api/v2/"
 

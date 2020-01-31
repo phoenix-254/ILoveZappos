@@ -1,5 +1,7 @@
-package sh.phoenix.ilovezappos.servicedata
+package sh.phoenix.ilovezappos.service.data
+
 import com.squareup.moshi.JsonClass
+import sh.phoenix.ilovezappos.service.data.common.Data
 
 @JsonClass(generateAdapter = true)
 data class Transaction(
@@ -9,3 +11,7 @@ data class Transaction(
     val tid: String,
     val type: String
 )
+
+data class TransactionResponse(
+    val transactions: List<Transaction>?
+) : Data

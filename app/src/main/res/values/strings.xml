@@ -11,16 +11,37 @@
     <string name="chart_type_bar">Bar</string>
     <string name="chart_label">Bitcoin Price : Last Hour</string>
 
-    <!-- Network Errors-->
-    <string name="network_error_title">Aww... Snap!</string>
-    <string name="network_error_message">No Network Detected. Please check your internet connection and try again!</string>
-    <string name="try_again_button">Try Again</string>
-    <string name="ic_wifi_off_description">Icon showing that wifi is disabled.</string>
-    <string name="ic_mobile_data_off_description">Icon showing that mobile data is disabled.</string>
+    <!-- Network Error-->
+    <string name="network_error_title">No Internet!</string>
+    <string name="network_error_message">Poor network connection detected.\nPlease check your connectivity.</string>
+    <string name="retry_button">Retry</string>
+
+    <!-- Server Error-->
+    <string name="server_error_title">Oops!</string>
+    <string name="server_error_message">Looks like there\'s some issue with our server.\nPlease try again in a while.</string>
 
     <!-- Order book-->
     <string name="title_amount">Amount</string>
     <string name="title_bid">Bid</string>
     <string name="title_ask">Ask</string>
+
+    <!-- Alerts-->
+    <string name="noAlertInfoText">You currently do not have any alerts set.</string>
+    <string name="delete_button_text">delete button</string>
+    <string name="add_alert_view_title">Add</string>
+    <string name="edit_alert_view_title">Edit</string>
+    <string name="alert_view_info">Notify me when the Bitcoin price is</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="save_button_text">Save</string>
+    <string name="operator_hint">Operator</string>
+    <string name="price_hint">Price</string>
+    <string name="alert_name_hint">Alert name</string>
+
+    <string-array name="operators_array">
+        <item>Less than</item>
+        <item>Greater than</item>
+        <item>Less than or equal to</item>
+        <item>Greater than or equal to</item>
+    </string-array>
 
 </resources>

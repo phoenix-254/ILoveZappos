@@ -1,4 +1,4 @@
-package sh.phoenix.ilovezappos.ui.orderbook
+package sh.phoenix.ilovezappos.ui.transactions
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,29 +8,31 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import sh.phoenix.ilovezappos.AppConstants
 import sh.phoenix.ilovezappos.NetworkException
-import sh.phoenix.ilovezappos.service.BitStampApiService
 import sh.phoenix.ilovezappos.service.data.common.Error
 import sh.phoenix.ilovezappos.service.data.common.ErrorType
+import sh.phoenix.ilovezappos.service.BitStampApiService
+import sh.phoenix.ilovezappos.service.data.Transaction
+import sh.phoenix.ilovezappos.service.data.TransactionResponse
 import sh.phoenix.ilovezappos.service.data.common.Response
 import java.lang.Exception
 
-class OrderBookViewModel(private val service: BitStampApiService) : ViewModel() {
+class TransactionViewModel(private val service: BitStampApiService) : ViewModel() {
     private val _response = MutableLiveData<Response>()
     val response: LiveData<Response> get() = _response
 
     private val _loadingState = MutableLiveData<Boolean>()
     val loadingState: LiveData<Boolean> get() = _loadingState
 
-    fun getOrderBookData() {
+    fun getTransactionsData() {
         _loadingState.value = true
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val serviceResponse = service.getOrderBook(AppConstants.CURRENCY_PAIR)
+                val serviceResponse = service.getTransactionHistory(AppConstants.CURRENCY_PAIR)
 
                 _loadingState.value = false
                 if(serviceResponse.isSuccessful) {
-                    _response.value = Response(serviceResponse.code(), true, serviceResponse.body(), null)
+                    _response.value = Response(serviceResponse.code(), true, TransactionResponse(serviceResponse.body()), null)
                 } else {
                     handleError(null)
                 }

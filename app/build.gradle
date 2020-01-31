@@ -66,4 +66,14 @@ dependencies {
 
     // MPAndroidChart - Chart library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // Room
+    implementation 'androidx.room:room-runtime:2.2.3'
+
+    // Kotlin Extensions and Coroutines support for Room
+    implementation 'androidx.room:room-ktx:2.2.3'
+
+    // Kodein - Dependency injector
+    implementation 'org.kodein.di:kodein-di-generic-jvm:5.2.0'
+    implementation 'org.kodein.di:kodein-di-framework-android-x:5.2.0'
 }
