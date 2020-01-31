@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">ILoveZappos</string>
 
+    <!-- Splash screen-->
+    <string name="splash_text_1">i</string>
+    <string name="splash_text_2">zappos</string>
+
     <!-- Navigation menu items-->
     <string name="title_transactions">Transactions</string>
     <string name="title_order_book">Order Book</string>
