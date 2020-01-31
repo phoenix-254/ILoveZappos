@@ -1,5 +1,6 @@
 <resources>
 
+    <!-- Splash screen theme-->
     <style name="AppTheme.SplashScreen" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

@@ -31,19 +31,19 @@ class AlertListAdapter(context: Context, val event: MutableLiveData<AlertItemEve
     }
 
     override fun onBindViewHolder(holder: AlertItemViewHolder, position: Int) {
-        getItem(position).let {
-            holder.title.text = it.title
-            holder.info.text = it.description
-            holder.price.text = it.triggerPrice
+        getItem(position).let { item ->
+            holder.title.text = item.title
+            holder.info.text = item.description
+            holder.price.text = item.triggerPrice
 
-            if(it.alertType == AlertType.BUY) {
+            if(item.alertType == AlertType.BUY) {
                 holder.price.setTextColor(ContextCompat.getColor(mContext, R.color.green))
-            } else if(it.alertType == AlertType.SELL) {
+            } else if(item.alertType == AlertType.SELL) {
                 holder.price.setTextColor(ContextCompat.getColor(mContext, R.color.red))
             }
 
             holder.itemView.setOnClickListener {
-                event.value = AlertItemEvent.OnClick(position)
+                event.value = AlertItemEvent.OnClick(item.createdDate)
             }
         }
     }

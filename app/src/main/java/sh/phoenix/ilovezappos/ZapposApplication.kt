@@ -8,9 +8,13 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
+import sh.phoenix.ilovezappos.database.AppDatabase
+import sh.phoenix.ilovezappos.database.DatabaseManager
+import sh.phoenix.ilovezappos.database.DatabaseManagerImpl
 import sh.phoenix.ilovezappos.service.BitStampApiService
 import sh.phoenix.ilovezappos.service.interceptor.ConnectivityInterceptor
 import sh.phoenix.ilovezappos.service.interceptor.ConnectivityInterceptorImpl
+import sh.phoenix.ilovezappos.ui.alerts.AlertsViewModel
 import sh.phoenix.ilovezappos.ui.orderbook.OrderBookViewModel
 import sh.phoenix.ilovezappos.ui.transactions.TransactionViewModel
 
@@ -26,5 +30,13 @@ class ZapposApplication : Application(), KodeinAware {
         bind() from provider { TransactionViewModel(instance()) }
 
         bind() from provider { OrderBookViewModel(instance()) }
+
+        bind() from singleton { AppDatabase(instance()) }
+
+        bind() from singleton { instance<AppDatabase>().alertDao() }
+
+        bind<DatabaseManager>() with singleton { DatabaseManagerImpl(instance()) }
+
+        bind() from provider { AlertsViewModel(instance()) }
     }
 }

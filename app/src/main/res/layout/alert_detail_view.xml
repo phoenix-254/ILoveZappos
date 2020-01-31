@@ -23,7 +23,7 @@
                 android:layout_height="48dp"
                 android:background="@color/colorPrimaryLight"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:paddingEnd="8dp">
 
                 <TextView
                     android:id="@+id/viewTitle"
@@ -34,13 +34,15 @@
                     android:textColor="@android:color/white"
                     android:text="@string/add_alert_view_title"/>
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/deleteButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
+                    android:padding="8dp"
                     android:src="@drawable/ic_delete"
+                    android:background="@android:color/transparent"
                     android:contentDescription="@string/delete_button_text"
                     android:visibility="invisible"
                     android:clickable="true"
@@ -110,6 +112,16 @@
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/errorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:text="@string/alert_modal_error"
+                android:visibility="gone"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

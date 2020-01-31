@@ -40,12 +40,15 @@
     <string name="operator_hint">Operator</string>
     <string name="price_hint">Price</string>
     <string name="alert_name_hint">Alert name</string>
+    <string name="operator_error">Must select an operator!</string>
+    <string name="price_error">Must specify a price!</string>
+    <string name="name_error">Must provide a name for your alert!</string>
+    <string name="alert_description_prefix">Triggers when the Bitcoin price goes</string>
+    <string name="alert_modal_error">All fields are mandatory!</string>
 
     <string-array name="operators_array">
         <item>Less than</item>
         <item>Greater than</item>
-        <item>Less than or equal to</item>
-        <item>Greater than or equal to</item>
     </string-array>
 
 </resources>

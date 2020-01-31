@@ -14,8 +14,8 @@ import sh.phoenix.ilovezappos.R
 class SplashActivity : AppCompatActivity() {
     private var pixelsToTranslate: Float = 0f
 
-    private val animationTime = 2000L
-    private val splashTime = 3000L
+    private val animationTime = 1500L
+    private val splashTime = 2500L
 
     private lateinit var handler: Handler
 
