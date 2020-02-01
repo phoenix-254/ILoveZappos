@@ -27,6 +27,9 @@ An Android application displaying cryptocurrency price information using bitstam
    - It also allows to delete or update previsouly set alerts.
    - A background service runs every hour that makes API request to get the latest price and shows notification to the user if the latest price matches the alerts criteria set by user.
    - API Url : https://www.bitstamp.net/api/v2/ticker_hour/btcusd/
+   
+## Try out.
+- Click [here](https://github.com/phoenix-254/ILoveZappos/blob/master/app/release/app-release.apk) to download APK file.
 
 ## License
 
