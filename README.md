@@ -18,9 +18,6 @@ An Android application displaying cryptocurrency price information using bitstam
    - It also allows to delete or update previsouly set alerts.
    - A background service runs every hour that makes API request to get the current price and takes action based on the response received.
    - API Url : https://www.bitstamp.net/api/v2/ticker_hour/btcusd/
-4. Settings:
-   - Allows the user to switch between light and dark mode.
-   - Small description about the app and version info.
 
 ## License
 
