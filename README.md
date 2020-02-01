@@ -4,11 +4,11 @@ An Android application displaying cryptocurrency price information using bitstam
 ## API used.
 - [Bitstamp](http://bitstamp.com/) public APIs
 
-## libraries used.
+## Libraries used.
 - Chart library : [mpAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 - Network handling : [Retrofit](https://square.github.io/retrofit/)
 - JSON Parsing : [Moshi](https://github.com/square/moshi)
-- Concurrency/Thread management : Kotlin-Coroutines(https://github.com/Kotlin/kotlinx.coroutines)
+- Concurrency/Thread management : [Kotlin-Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 - Database : [Room](https://developer.android.com/jetpack/androidx/releases/room)
 - Dependency Injection : [Kodein](https://kodein.org/Kodein-DI/?5.0/android)
 - Background task scheduler : [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/)
