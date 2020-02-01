@@ -22,6 +22,7 @@ import sh.phoenix.ilovezappos.model.AlertItem
 import sh.phoenix.ilovezappos.model.AlertType
 import sh.phoenix.ilovezappos.ui.alerts.alertlist.AlertItemEvent
 import sh.phoenix.ilovezappos.ui.alerts.alertlist.AlertListAdapter
+import sh.phoenix.ilovezappos.workmanager.Scheduler
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -38,6 +39,8 @@ class AlertsFragment : Fragment(), KodeinAware {
 
     private var alertItems: List<AlertItem>? = null
     private var selectedItemCreatedDate: String? = null
+
+    private lateinit var scheduler: Scheduler
 
     private val viewModel: AlertsViewModel by instance()
 
@@ -56,6 +59,7 @@ class AlertsFragment : Fragment(), KodeinAware {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+        scheduler = Scheduler(mContext)
     }
 
     override fun onStart() {
@@ -222,9 +226,11 @@ class AlertsFragment : Fragment(), KodeinAware {
                 adapter.submitList(it)
                 infoText.visibility = View.INVISIBLE
                 alertList.visibility = View.VISIBLE
+                scheduler.schedule()
             } else {
                 alertList.visibility = View.INVISIBLE
                 infoText.visibility = View.VISIBLE
+                scheduler.cancel()
             }
         })
     }
