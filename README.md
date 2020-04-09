@@ -32,6 +32,4 @@ An Android application displaying cryptocurrency price information using bitstam
 - Click [here](https://github.com/phoenix-254/ILoveZappos/blob/master/app/release/app-release.apk) to download APK file.
 
 ## License
-
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
-- **[MIT license](http://opensource.org/licenses/mit-license.php)**
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
