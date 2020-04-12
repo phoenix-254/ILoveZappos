@@ -1,6 +1,31 @@
 # ILoveZappos
 An Android application displaying cryptocurrency price information using bitstamp API - Zappos intern challenge
 
+## Screenshots
+<table>
+   <tr>
+      <td><img src="screenshots/splash.jpg" height="520" width="250"/></td>
+      <td><img src="screenshots/bar_chart.jpg" height="520" width="250"/></td>
+      <td><img src="screenshots/line_chart.jpg" height="520" width="250"/></td>
+   </tr>
+   <tr>
+      <td><img src="screenshots/order_book.jpg" height="520" width="250"/></td>
+      <td><img src="screenshots/alert_empty.jpg" height="520" width="250"/></td>
+      <td><img src="screenshots/alert_basic.jpg" height="520" width="250"/></td>
+   </tr>
+   <tr>
+      <td><img src="screenshots/alert_add.jpg" height="520" width="250"/></td>
+      <td><img src="screenshots/alert_edit.jpg" height="520" width="250"/></td>
+      <td><img src="screenshots/notification.jpg" height="520" width="250"/></td>
+   </tr>
+</table>
+<table>
+   <tr>
+      <td><img src="screenshots/line_chart_hr.jpg" height="250" width="525"/></td>
+      <td><img src="screenshots/network_error.jpg" height="520" width="250"/></td>
+   </tr>
+</table>
+
 ## API used.
 - [Bitstamp](http://bitstamp.com/) public APIs
 
